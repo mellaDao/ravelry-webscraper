@@ -1,6 +1,7 @@
 import threading
 import tkinter as tk
 from tkinter import END, Button, Entry, Frame, IntVar, Label, Radiobutton, messagebox
+import traceback
 
 from ravelry_auth import create_session, load_credentials_from_file
 from ravelry_core import run_pipeline
@@ -307,7 +308,8 @@ class RavelryApp:
                 else:
                     progress("Done.")
             except Exception as error:
-                error_msg = str(error)   # ← capture it immediately
+                traceback.print_exc()   # ← prints full error to terminal
+                error_msg = str(error)
                 self.window.after(0, lambda: messagebox.showerror("Error", error_msg))
                 self.window.after(0, lambda: status_label.config(text=f"Status: Error: {error_msg}"))
             finally:
