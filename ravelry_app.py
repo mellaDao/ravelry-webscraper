@@ -4,6 +4,7 @@ from tkinter import END, Button, Entry, Frame, IntVar, Label, Radiobutton, messa
 
 from ravelry_auth import create_session, load_credentials_from_file
 from ravelry_core import run_pipeline
+from storage import init_db
 
 FONT_NAME = "Segoe UI"
 FONT_TITLE_SIZE = 20
@@ -20,6 +21,8 @@ class RavelryApp:
         self.window = tk.Tk()
         self.window.geometry("520x660")
         self.window.title("Ravelry Project Scraper")
+
+        init_db()
 
         self.session = None
         self.username = None
