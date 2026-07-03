@@ -276,8 +276,6 @@ class RavelryApp:
     # handle submit
     def handle_submit(self, submit_button, widgets):
         pattern_slug = widgets["pattern_entry"].get().strip()
-        excel_path = widgets["excel_entry"].get().strip()
-        predictions_path = widgets["predictions_entry"].get().strip()
         train_csv_path = widgets["train_csv_entry"].get().strip()
         mode = widgets["mode_var"].get()
         status_label = widgets["status_label"]
@@ -286,16 +284,8 @@ class RavelryApp:
             messagebox.showerror("Missing Input", "Pattern slug is required for scraping.")
             return
 
-        if not excel_path:
-            messagebox.showerror("Missing Input", "Excel file name is required.")
-            return
-
         if mode in {MODE_SENTIMENT, MODE_BOTH} and not train_csv_path:
             messagebox.showerror("Missing Input", "Train CSV path is required for sentiment analysis.")
-            return
-
-        if mode in {MODE_SENTIMENT, MODE_BOTH} and not predictions_path:
-            messagebox.showerror("Missing Input", "Predictions file name is required for sentiment analysis.")
             return
 
         submit_button.config(state="disabled")
@@ -311,8 +301,6 @@ class RavelryApp:
                     pattern_slug=pattern_slug,
                     username=self.username,
                     session=self.session,
-                    excel_path=excel_path,
-                    predictions_path=predictions_path,
                     train_csv_path=train_csv_path,
                     on_progress=progress,
                 )
