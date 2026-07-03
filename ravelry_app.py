@@ -137,7 +137,9 @@ class RavelryApp:
             font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE),
         ).grid(row=1, column=0, columnspan=3, pady=(0, 20))
 
-        # form fields
+        # form fields, the default values are using agnete cardigan by PetiteKnit, but can type in the pattern slug in the GUI
+        # pattern slug is in the URL
+        # example: (https://www.ravelry.com/patterns/library/agnete-cardigan) - pattern slug is "agnete-cardigan"
         Label(center_frame, text="Pattern Slug", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
             row=2, column=0, sticky="e", padx=(0, 10), pady=8
         )
