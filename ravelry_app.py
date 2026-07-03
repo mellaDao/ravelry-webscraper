@@ -259,18 +259,12 @@ class RavelryApp:
     def clear_main_form(
         self,
         pattern_entry,
-        excel_entry,
-        predictions_entry,
         train_csv_entry,
         mode_var,
         status_label,
     ):
         pattern_entry.delete(0, END)
         pattern_entry.insert(0, "agnete-cardigan")
-        excel_entry.delete(0, END)
-        excel_entry.insert(0, "Agnete-Cardigan.xlsx")
-        predictions_entry.delete(0, END)
-        predictions_entry.insert(0, "predictions.xlsx")
         train_csv_entry.delete(0, END)
         train_csv_entry.insert(0, "train.csv")
         mode_var.set(MODE_BOTH)
