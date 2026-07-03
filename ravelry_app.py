@@ -307,11 +307,9 @@ class RavelryApp:
                 else:
                     progress("Done.")
             except Exception as error:
-                error_text = str(error)
-
-                self.window.after(0, lambda: messagebox.showerror("Error", error_text))
-
-                self.window.after(0,lambda: status_label.config(text=f"Status: Error: {error_text}"))
+                error_msg = str(error)   # ← capture it immediately
+                self.window.after(0, lambda: messagebox.showerror("Error", error_msg))
+                self.window.after(0, lambda: status_label.config(text=f"Status: Error: {error_msg}"))
             finally:
                 self.window.after(0, lambda: submit_button.config(state="normal"))
 
