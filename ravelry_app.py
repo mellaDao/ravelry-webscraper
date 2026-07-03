@@ -151,7 +151,7 @@ class RavelryApp:
         pattern_entry.grid(row=2, column=1, pady=8)
 
         Label(center_frame, text="Train CSV", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
-            row=5, column=0, sticky="e", padx=(0, 10), pady=8
+            row=3, column=0, sticky="e", padx=(0, 10), pady=8
         )
         train_csv_entry = Entry(center_frame, width=34)
         train_csv_entry.insert(0, "train.csv")
@@ -212,7 +212,7 @@ class RavelryApp:
             center_frame,
             text="Log Out",
             command=self.show_login_screen,
-        ).grid(row=11, column=0, columnspan=3, pady=(0, 10))
+        ).grid(row=9, column=0, columnspan=3, pady=(0, 10))
 
     # load credentials
     def load_credentials_into_form(self, username_entry, password_entry, key_entry, status_label):
