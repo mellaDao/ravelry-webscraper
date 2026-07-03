@@ -9,8 +9,6 @@ FONT_NAME = "Segoe UI"
 FONT_TITLE_SIZE = 20
 FONT_BODY_SIZE = 12
 FONT_STYLE = ""
-OFFSET_X = -20
-OFFSET_Y = -20
 
 MODE_SCRAPE = 1
 MODE_SENTIMENT = 2
@@ -65,7 +63,7 @@ class RavelryApp:
         font=(FONT_NAME, FONT_TITLE_SIZE, FONT_STYLE),
         ).grid(row=0, column=0, columnspan=2, pady=(0, 30))
 
-        # --- form fields ---
+        # form fields
         Label(center_frame, text="Username", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(row=1, column=0, sticky="e", padx=(0, 10), pady=8)
         username_entry = Entry(center_frame, width=30)
         username_entry.grid(row=1, column=1, pady=8)
@@ -78,7 +76,7 @@ class RavelryApp:
         key_entry = Entry(center_frame, width=30, show="*")
         key_entry.grid(row=3, column=1, pady=8)
 
-        # --- buttons ---
+        # buttons
         Button(
             center_frame,
             text="Load Saved Credentials",
@@ -87,7 +85,7 @@ class RavelryApp:
             ),
         ).grid(row=4, column=0, columnspan=2, pady=(20, 8))
 
-        login_button = Button(      # ← assign to variable
+        login_button = Button(
             center_frame,
             text="Login",
             width=20,
@@ -97,9 +95,9 @@ class RavelryApp:
                 username_entry, password_entry, login_button, status_label
             ),
         )
-        login_button.grid(row=5, column=0, columnspan=2, pady=8)   # ← grid separately
+        login_button.grid(row=5, column=0, columnspan=2, pady=8)
 
-        # --- status ---
+        # status
         status_label = Label(
             center_frame,
             text="Status: Enter credentials to log in.",
@@ -123,83 +121,77 @@ class RavelryApp:
 
     # build main screen
     def build_main_screen(self, parent):
+        center_frame = Frame(parent)
+        center_frame.pack(expand=True)
+
+        # title
         Label(
-            parent,
+            center_frame,
             text="Ravelry Project Scraper",
             font=(FONT_NAME, FONT_TITLE_SIZE, FONT_STYLE),
-        ).place(x=120 + OFFSET_X, y=20 + OFFSET_Y)
+        ).grid(row=0, column=0, columnspan=3, pady=(0, 5))
 
         Label(
-            parent,
+            center_frame,
             text=f"Logged in as: {self.username}",
             font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE),
-        ).place(x=45 + OFFSET_X, y=60 + OFFSET_Y)
+        ).grid(row=1, column=0, columnspan=3, pady=(0, 20))
 
-        Label(parent, text="Pattern Slug", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).place(
-            x=45 + OFFSET_X, y=95 + OFFSET_Y
+        # form fields
+        Label(center_frame, text="Pattern Slug", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
+            row=2, column=0, sticky="e", padx=(0, 10), pady=8
         )
-        pattern_entry = Entry(parent, width=34)
+        pattern_entry = Entry(center_frame, width=34)
         pattern_entry.insert(0, "agnete-cardigan")
-        pattern_entry.place(x=165 + OFFSET_X, y=100 + OFFSET_Y)
+        pattern_entry.grid(row=2, column=1, pady=8)
 
-        Label(parent, text="Excel File", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).place(
-            x=45 + OFFSET_X, y=135 + OFFSET_Y
+        Label(center_frame, text="Excel File", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
+            row=3, column=0, sticky="e", padx=(0, 10), pady=8
         )
-        excel_entry = Entry(parent, width=34)
+        excel_entry = Entry(center_frame, width=34)
         excel_entry.insert(0, "Agnete-Cardigan.xlsx")
-        excel_entry.place(x=165 + OFFSET_X, y=140 + OFFSET_Y)
+        excel_entry.grid(row=3, column=1, pady=8)
 
-        Label(
-            parent,
-            text="Predictions File",
-            font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE),
-        ).place(x=15 + OFFSET_X, y=175 + OFFSET_Y)
-        predictions_entry = Entry(parent, width=34)
-        predictions_entry.insert(0, "predictions.xlsx")
-        predictions_entry.place(x=165 + OFFSET_X, y=180 + OFFSET_Y)
-
-        Label(parent, text="Train CSV", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).place(
-            x=45 + OFFSET_X, y=215 + OFFSET_Y
+        Label(center_frame, text="Predictions File", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
+            row=4, column=0, sticky="e", padx=(0, 10), pady=8
         )
-        train_csv_entry = Entry(parent, width=34)
-        train_csv_entry.insert(0, "train.csv")
-        train_csv_entry.place(x=165 + OFFSET_X, y=220 + OFFSET_Y)
+        predictions_entry = Entry(center_frame, width=34)
+        predictions_entry.insert(0, "predictions.xlsx")
+        predictions_entry.grid(row=4, column=1, pady=8)
 
-        Label(parent, text="Mode", width=20, font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).place(
-            x=45 + OFFSET_X, y=260 + OFFSET_Y
+        Label(center_frame, text="Train CSV", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
+            row=5, column=0, sticky="e", padx=(0, 10), pady=8
+        )
+        train_csv_entry = Entry(center_frame, width=34)
+        train_csv_entry.insert(0, "train.csv")
+        train_csv_entry.grid(row=5, column=1, pady=8)
+
+        # mode radio buttons
+        Label(center_frame, text="Mode", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
+            row=6, column=0, sticky="e", padx=(0, 10), pady=(8, 0)
         )
         mode_var = IntVar(value=MODE_BOTH)
-        Radiobutton(
-            parent,
-            text="Scrape only",
-            padx=5,
-            variable=mode_var,
-            value=MODE_SCRAPE,
-        ).place(x=165 + OFFSET_X, y=262 + OFFSET_Y)
-        Radiobutton(
-            parent,
-            text="Sentiment only",
-            padx=5,
-            variable=mode_var,
-            value=MODE_SENTIMENT,
-        ).place(x=165 + OFFSET_X, y=292 + OFFSET_Y)
-        Radiobutton(
-            parent,
-            text="Scrape + Sentiment",
-            padx=5,
-            variable=mode_var,
-            value=MODE_BOTH,
-        ).place(x=165 + OFFSET_X, y=322 + OFFSET_Y)
+        Radiobutton(center_frame, text="Scrape only", variable=mode_var, value=MODE_SCRAPE).grid(
+            row=6, column=1, sticky="w"
+        )
+        Radiobutton(center_frame, text="Sentiment only", variable=mode_var, value=MODE_SENTIMENT).grid(
+            row=7, column=1, sticky="w"
+        )
+        Radiobutton(center_frame, text="Scrape + Sentiment", variable=mode_var, value=MODE_BOTH).grid(
+            row=8, column=1, sticky="w", pady=(0, 8)
+        )
 
+        # status
         status_label = Label(
-            parent,
+            center_frame,
             text="Status: Ready.",
             font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE),
-            wraplength=430,
+            wraplength=380,
             justify="left",
         )
-        status_label.place(x=45 + OFFSET_X, y=370 + OFFSET_Y)
+        status_label.grid(row=9, column=0, columnspan=3, pady=(10, 20))
 
+        # buttons
         widgets = {
             "pattern_entry": pattern_entry,
             "excel_entry": excel_entry,
@@ -210,33 +202,29 @@ class RavelryApp:
         }
 
         submit_button = Button(
-            parent,
+            center_frame,
             text="Submit",
             width=20,
             bg="brown",
             fg="white",
             command=lambda: self.handle_submit(submit_button, widgets),
         )
-        submit_button.place(x=165 + OFFSET_X, y=470 + OFFSET_Y)
+        submit_button.grid(row=10, column=0, columnspan=3, pady=8)
 
         Button(
-            parent,
+            center_frame,
             text="Clear All",
             command=lambda: self.clear_main_form(
-                pattern_entry,
-                excel_entry,
-                predictions_entry,
-                train_csv_entry,
-                mode_var,
-                status_label,
+                pattern_entry, excel_entry, predictions_entry,
+                train_csv_entry, mode_var, status_label,
             ),
-        ).place(x=390 + OFFSET_X, y=100 + OFFSET_Y)
+        ).grid(row=2, column=2, padx=(10, 0))
 
         Button(
-            parent,
+            center_frame,
             text="Log Out",
             command=self.show_login_screen,
-        ).place(x=390 + OFFSET_X, y=470 + OFFSET_Y)
+        ).grid(row=11, column=0, columnspan=3, pady=(0, 10))
 
     # load credentials
     def load_credentials_into_form(self, username_entry, password_entry, key_entry, status_label):
