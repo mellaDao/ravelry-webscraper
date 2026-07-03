@@ -147,20 +147,6 @@ class RavelryApp:
         pattern_entry.insert(0, "agnete-cardigan")
         pattern_entry.grid(row=2, column=1, pady=8)
 
-        Label(center_frame, text="Excel File", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
-            row=3, column=0, sticky="e", padx=(0, 10), pady=8
-        )
-        excel_entry = Entry(center_frame, width=34)
-        excel_entry.insert(0, "Agnete-Cardigan.xlsx")
-        excel_entry.grid(row=3, column=1, pady=8)
-
-        Label(center_frame, text="Predictions File", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
-            row=4, column=0, sticky="e", padx=(0, 10), pady=8
-        )
-        predictions_entry = Entry(center_frame, width=34)
-        predictions_entry.insert(0, "predictions.xlsx")
-        predictions_entry.grid(row=4, column=1, pady=8)
-
         Label(center_frame, text="Train CSV", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
             row=5, column=0, sticky="e", padx=(0, 10), pady=8
         )
