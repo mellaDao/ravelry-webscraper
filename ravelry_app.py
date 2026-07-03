@@ -152,21 +152,21 @@ class RavelryApp:
         )
         train_csv_entry = Entry(center_frame, width=34)
         train_csv_entry.insert(0, "train.csv")
-        train_csv_entry.grid(row=5, column=1, pady=8)
+        train_csv_entry.grid(row=3, column=1, pady=8)
 
         # mode radio buttons
         Label(center_frame, text="Mode", font=(FONT_NAME, FONT_BODY_SIZE, FONT_STYLE)).grid(
-            row=6, column=0, sticky="e", padx=(0, 10), pady=(8, 0)
+            row=4, column=0, sticky="e", padx=(0, 10), pady=(8, 0)
         )
         mode_var = IntVar(value=MODE_BOTH)
         Radiobutton(center_frame, text="Scrape only", variable=mode_var, value=MODE_SCRAPE).grid(
-            row=6, column=1, sticky="w"
+            row=4, column=1, sticky="w"
         )
         Radiobutton(center_frame, text="Sentiment only", variable=mode_var, value=MODE_SENTIMENT).grid(
-            row=7, column=1, sticky="w"
+            row=5, column=1, sticky="w"
         )
         Radiobutton(center_frame, text="Scrape + Sentiment", variable=mode_var, value=MODE_BOTH).grid(
-            row=8, column=1, sticky="w", pady=(0, 8)
+            row=6, column=1, sticky="w", pady=(0, 8)
         )
 
         # status
@@ -177,13 +177,11 @@ class RavelryApp:
             wraplength=380,
             justify="left",
         )
-        status_label.grid(row=9, column=0, columnspan=3, pady=(10, 20))
+        status_label.grid(row=7, column=0, columnspan=3, pady=(10, 20))
 
         # buttons
         widgets = {
             "pattern_entry": pattern_entry,
-            "excel_entry": excel_entry,
-            "predictions_entry": predictions_entry,
             "train_csv_entry": train_csv_entry,
             "mode_var": mode_var,
             "status_label": status_label,
@@ -197,14 +195,13 @@ class RavelryApp:
             fg="white",
             command=lambda: self.handle_submit(submit_button, widgets),
         )
-        submit_button.grid(row=10, column=0, columnspan=3, pady=8)
+        submit_button.grid(row=8, column=0, columnspan=3, pady=8)
 
         Button(
             center_frame,
             text="Clear All",
             command=lambda: self.clear_main_form(
-                pattern_entry, excel_entry, predictions_entry,
-                train_csv_entry, mode_var, status_label,
+                pattern_entry, train_csv_entry, mode_var, status_label,
             ),
         ).grid(row=2, column=2, padx=(10, 0))
 
