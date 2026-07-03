@@ -246,12 +246,11 @@ class RavelryApp:
                 self.username = username
                 self.window.after(0, self.show_main_screen)
             except Exception as error:
-                self.window.after(0, lambda: messagebox.showerror("Login Failed", str(error)))
-                self.window.after(
-                    0,
-                    lambda: status_label.config(text=f"Status: Login failed. {error}"),
-                )
-                self.window.after(0, lambda: login_button.config(state="normal"))
+                error_text = str(error)
+
+                self.window.after(0, lambda: messagebox.showerror("Login Failed", error_text)) 
+                self.window.after(0, lambda: status_label.config(text=f"Status: Login failed. {error_text}"))
+                self.window.after(0,lambda: login_button.config(state="normal"))
 
         threading.Thread(target=worker, daemon=True).start()
 
