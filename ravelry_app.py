@@ -91,7 +91,6 @@ class RavelryApp:
 
     def load_credentials_into_form(self, username_entry, password_entry, key_entry, status_label):
         try:
-            from ravelry_auth import load_credentials_from_file
             config_key = key_entry.get().strip() or None
             username, password = load_credentials_from_file(key=config_key)
             username_entry.delete(0, END)

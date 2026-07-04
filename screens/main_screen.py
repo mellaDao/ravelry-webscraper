@@ -11,11 +11,9 @@ MODE_SENTIMENT = 2
 MODE_BOTH = 3
 
 class MainScreen:
-    def __init__(self, parent, username, on_submit, on_clear, on_logout):
-        self.parent = parent
+    def __init__(self, parent, username, on_submit, on_logout):
         self.username = username
         self.on_submit = on_submit
-        self.on_clear = on_clear
         self.on_logout = on_logout
         self.build(parent)
 
