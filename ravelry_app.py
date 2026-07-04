@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import END, Frame, messagebox
 import traceback
 
-from ravelry_auth import create_session
+from ravelry_auth import create_session, load_credentials_from_file
 from ravelry_core import run_pipeline
 from storage import init_db
 from screens.login_screen import LoginScreen
@@ -26,10 +26,9 @@ class RavelryApp:
         self.session = None
         self.username = None
         self.current_frame = None
+        self.cancel_event = threading.Event() # mostly to track whether the scraping event needs to be cancelled
 
         self.show_login_screen()
-
-        self.cancel_event = threading.Event() # mostly to track whether the scraping event needs to be cancelled
 
     # wipes the current screen
     def clear_frame(self):
@@ -89,6 +88,19 @@ class RavelryApp:
                 self.window.after(0,lambda: login_button.config(state="normal"))
 
         threading.Thread(target=worker, daemon=True).start()
+
+    def load_credentials_into_form(self, username_entry, password_entry, key_entry, status_label):
+        try:
+            from ravelry_auth import load_credentials_from_file
+            config_key = key_entry.get().strip() or None
+            username, password = load_credentials_from_file(key=config_key)
+            username_entry.delete(0, END)
+            username_entry.insert(0, username)
+            password_entry.delete(0, END)
+            password_entry.insert(0, password)
+            status_label.config(text="Status: Loaded saved credentials.")
+        except Exception as error:
+            messagebox.showerror("Error", str(error))
 
     def safe_logout(self):
         if messagebox.askyesno("Log Out", "Are you sure? Any running tasks will be cancelled."):
