@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+import pickle
 
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
@@ -8,12 +9,17 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
+MODEL_PATH = "sentiment_model.pkl"
 
 def _preprocessor(text):
     return re.sub(r"[^a-z ]", "", text.lower())
 
-
 def train_sentiment_model(train_csv_path="train.csv", test_size=0.20, random_state=123):
+    # load cached model if it exists
+    if Path(MODEL_PATH).is_file():
+        with open(MODEL_PATH, "rb") as f:
+            return pickle.load(f)
+        
     train_file = Path(train_csv_path)
     if not train_file.is_file():
         raise FileNotFoundError(f"Training file not found: {train_file}")
@@ -57,6 +63,11 @@ def train_sentiment_model(train_csv_path="train.csv", test_size=0.20, random_sta
 
     y_test_pred = model.predict(x_test)
     report = classification_report(y_test, y_test_pred)
+
+     # save model for next time
+    with open(MODEL_PATH, "wb") as f:
+        pickle.dump((model, report), f)
+
     return model, report
 
 

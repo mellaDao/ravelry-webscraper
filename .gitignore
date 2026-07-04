@@ -1,5 +1,6 @@
 login-info.txt
 login-config.xml
 train.csv
+sentiment_model.pkl
 __pycache__/
 *.pyc
