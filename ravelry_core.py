@@ -1,8 +1,7 @@
 from ravelry_auth import load_credentials_from_file
 from scraper import scrape_pattern
 from sentiment import train_sentiment_model, predict_sentiment
-from storage import save_dataframe, load_dataframe
-
+from storage import save_dataframe, save_predictions, load_dataframe
 
 def run_pipeline(
     mode,
@@ -12,8 +11,6 @@ def run_pipeline(
     credentials_path=None,
     credentials_key=None,
     session=None,
-    excel_path="Agnete-Cardigan.xlsx",
-    predictions_path="predictions.xlsx",
     train_csv_path="train.csv",
     on_progress=None,
 ):
@@ -37,15 +34,16 @@ def run_pipeline(
             session=session,
             on_progress=on_progress,
         )
-        save_dataframe(df, excel_path)
+        save_dataframe(df, pattern_slug)
+
         if on_progress:
-            on_progress(f"Saved scrape results to {excel_path}.")
+            on_progress(f"Saved {len(df)} projects to database.")
 
     if mode in {"2", "3", "sentiment", "both"}:
         if df is None:
             if on_progress:
-                on_progress(f"Loading data from {excel_path}...")
-            df = load_dataframe(excel_path)
+                on_progress(f"Loading data for '{pattern_slug}' from database...")
+            df = load_dataframe(pattern_slug)
 
         if on_progress:
             on_progress("Training sentiment model...")
@@ -54,13 +52,12 @@ def run_pipeline(
         if on_progress:
             on_progress("Predicting sentiment on project notes...")
         predictions_df = predict_sentiment(model, df)
-        save_dataframe(predictions_df, predictions_path)
+        save_predictions(predictions_df, pattern_slug)
+
         if on_progress:
-            on_progress(f"Saved predictions to {predictions_path}.")
+            on_progress("Saved predictions to database.")
 
     return {
         "dataframe": df,
         "report": report,
-        "excel_path": excel_path,
-        "predictions_path": predictions_path if mode in {"2", "3", "sentiment", "both"} else None,
     }

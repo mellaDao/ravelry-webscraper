@@ -20,7 +20,7 @@ class RavelryApp:
     # on startup, create initial window and first show the login screen
     def __init__(self):
         self.window = tk.Tk()
-        self.window.geometry("520x660")
+        self.window.geometry("520x580")
         self.window.title("Ravelry Project Scraper")
 
         init_db()
