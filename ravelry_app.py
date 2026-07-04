@@ -31,6 +31,8 @@ class RavelryApp:
 
         self.show_login_screen()
 
+        self.cancel_event = threading.Event()
+
     # wipes the current screen
     def clear_frame(self):
         if self.current_frame is not None:
@@ -212,7 +214,7 @@ class RavelryApp:
         Button(
             center_frame,
             text="Log Out",
-            command=self.show_login_screen,
+            command=self.safe_logout(),
         ).grid(row=9, column=0, columnspan=3, pady=(0, 10))
 
     # load credentials
@@ -255,6 +257,11 @@ class RavelryApp:
 
         threading.Thread(target=worker, daemon=True).start()
 
+    def safe_logout(self):
+        if messagebox.askyesno("Log Out", "Are you sure? Any running tasks will be cancelled."):
+            self.cancel_event.set()
+            self.show_login_screen()
+
     # clear typed entries from the form
     def clear_main_form(
         self,
@@ -272,6 +279,7 @@ class RavelryApp:
 
     # handle submit
     def handle_submit(self, submit_button, widgets):
+        self.cancel_event.clear()
         pattern_slug = widgets["pattern_entry"].get().strip()
         train_csv_path = widgets["train_csv_entry"].get().strip()
         mode = widgets["mode_var"].get()
@@ -299,6 +307,7 @@ class RavelryApp:
                     username=self.username,
                     session=self.session,
                     train_csv_path=train_csv_path,
+                    cancel_event=self.cancel_event,
                     on_progress=progress,
                 )
 
