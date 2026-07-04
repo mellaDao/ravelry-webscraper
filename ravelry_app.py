@@ -214,7 +214,7 @@ class RavelryApp:
         Button(
             center_frame,
             text="Log Out",
-            command=self.safe_logout(),
+            command=self.safe_logout,
         ).grid(row=9, column=0, columnspan=3, pady=(0, 10))
 
     # load credentials
