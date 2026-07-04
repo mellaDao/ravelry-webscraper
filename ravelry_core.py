@@ -34,7 +34,7 @@ def run_pipeline(
             session=session,
             on_progress=on_progress,
         )
-        save_dataframe(df, pattern_slug)
+        save_predictions(predictions_df, pattern_slug)
 
         if on_progress:
             on_progress(f"Saved {len(df)} projects to database.")
