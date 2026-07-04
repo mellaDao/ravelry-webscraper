@@ -13,6 +13,7 @@ def run_pipeline(
     session=None,
     train_csv_path="train.csv",
     on_progress=None,
+    cancel_event=None,
 ):
     mode = str(mode)
     df = None
@@ -33,6 +34,7 @@ def run_pipeline(
             credentials_key=credentials_key,
             session=session,
             on_progress=on_progress,
+            cancel_event=cancel_event,
         )
         save_dataframe(df, pattern_slug)
 

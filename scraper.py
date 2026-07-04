@@ -93,6 +93,7 @@ def scrape_pattern(
     credentials_key=None,
     session=None,
     on_progress=None,
+    cancel_event=None,
 ):
     if session is None:
         if not username or not password:
@@ -109,8 +110,10 @@ def scrape_pattern(
 
     rows = []
     for page in range(1, num_pages + 1):
-        if on_progress:
-            on_progress(f"Scraping page {page} of {num_pages}...")
+        if cancel_event and cancel_event.is_set():
+            if on_progress:
+                on_progress("Cancelled.")
+            return pd.DataFrame(rows)  # return whatever was collected so far
 
         response = session.get(_people_gallery_url(pattern_slug, page), headers=HEADERS)
         soup = BeautifulSoup(response.text, "html.parser")
