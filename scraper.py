@@ -1,22 +1,19 @@
 import math
 import re
-import time
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
+from my_constants import HEADERS
 
-from ravelry_auth import HEADERS, create_session, load_credentials_from_file
+from ravelry_auth import create_session, load_credentials_from_file
 
 CARDS_PER_PAGE = 32
-
 
 def _people_gallery_url(pattern_slug, page):
     return (
         f"https://www.ravelry.com/patterns/library/{pattern_slug}/people"
         f"?page={page}&view=cards"
     )
-
 
 def get_project_count(session, pattern_slug):
     response = session.get(_people_gallery_url(pattern_slug, 1), headers=HEADERS)

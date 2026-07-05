@@ -1,14 +1,7 @@
 import tkinter as tk
 from tkinter import END, Button, Entry, Frame, IntVar, Label, Radiobutton
 
-FONT_NAME = "Segoe UI"
-FONT_TITLE_SIZE = 20
-FONT_BODY_SIZE = 12
-FONT_STYLE = ""
-
-MODE_SCRAPE = 1
-MODE_SENTIMENT = 2
-MODE_BOTH = 3
+from my_constants import FONT_TITLE_SIZE, FONT_STYLE, FONT_NAME, FONT_BODY_SIZE, MODE_BOTH, MODE_SCRAPE, MODE_SENTIMENT
 
 class MainScreen:
     def __init__(self, parent, username, on_submit, on_logout):

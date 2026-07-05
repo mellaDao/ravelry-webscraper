@@ -4,3 +4,5 @@ train.csv
 sentiment_model.pkl
 __pycache__/
 *.pyc
+
+archive/

@@ -10,9 +10,7 @@ from screens.login_screen import LoginScreen
 from screens.main_screen import MainScreen
 #from screens.results_screen import ResultsScreen
 
-MODE_SCRAPE = 1
-MODE_SENTIMENT = 2
-MODE_BOTH = 3
+from my_constants import MODE_BOTH, MODE_SCRAPE, MODE_SENTIMENT
 
 class RavelryApp:
     # on startup, create initial window and first show the login screen

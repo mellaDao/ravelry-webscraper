@@ -1,10 +1,7 @@
 import tkinter as tk
-from tkinter import END, Button, Entry, Frame, Label
+from tkinter import Button, Entry, Frame, Label
 
-FONT_NAME = "Segoe UI"
-FONT_TITLE_SIZE = 20
-FONT_BODY_SIZE = 12
-FONT_STYLE = ""
+from my_constants import FONT_TITLE_SIZE, FONT_STYLE, FONT_NAME, FONT_BODY_SIZE
 
 class LoginScreen:
     def __init__(self, parent, on_login, on_load_credentials):

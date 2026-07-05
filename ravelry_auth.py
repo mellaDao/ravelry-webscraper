@@ -5,9 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from encrypt_password import load_credentials
 
-HEADERS = {"User-Agent": "Mozilla/5.0"}
-LOGIN_URL = "https://www.ravelry.com/account/login"
-
+from my_constants import HEADERS, BASE_URL, LOGIN_URL
 
 def load_credentials_from_file(path=None, key=None):
     return load_credentials(path=path, key=key)
@@ -32,7 +30,7 @@ def create_session(username, password):
 
 
 def verify_session(session):
-    response = session.get("https://www.ravelry.com/", headers=HEADERS, timeout=60)
+    response = session.get(BASE_URL, headers=HEADERS, timeout=60)
     soup = BeautifulSoup(response.text, "html.parser")
 
     if soup.find("a", href=re.compile(r"/account/logout")):
